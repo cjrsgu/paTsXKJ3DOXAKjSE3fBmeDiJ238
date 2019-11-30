@@ -4,10 +4,10 @@ import {
   createStore,
 } from 'redux';
 
-import rootSaga from './rootSaga';
 import reduxLoggerInit from './init/loggerInit';
 import reduxSagaInit, { sagaMiddleware } from './init/sagaInit';
 
+import rootSaga from './rootSaga';
 import createMainReducer from './createMainReducer';
 
 export default () => {
@@ -18,8 +18,9 @@ export default () => {
 
   const combinedReducer = createMainReducer();
   const enhancer = compose(applyMiddleware(...middleware));
-  const store = createStore(combinedReducer, null, enhancer);
 
+  const store = createStore(combinedReducer, enhancer);
+  console.log(store);
   sagaMiddleware.run(rootSaga);
 
   return {

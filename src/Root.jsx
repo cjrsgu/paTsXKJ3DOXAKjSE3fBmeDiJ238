@@ -14,7 +14,7 @@ import User from './pages/User';
 import AddUser from './pages/AddUser';
 
 const { store } = configureStore();
-
+console.log(store);
 const Header = () => (
   <ul>
     <li>
@@ -38,8 +38,7 @@ export default () => (
           <Route exact path="/">
             <UserList />
           </Route>
-          <Route exact path="/user">
-            <User />
+          <Route exact path="/user/:id" children={<User />}>
           </Route>
           <Route exact path="/add-user">
             <AddUser />
