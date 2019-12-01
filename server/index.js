@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const port = 3002;
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -74,9 +76,11 @@ const router = express.Router();
 
 router.route('/contact/')
   .get((request, response) => {
+    console.log('contact', 'get');
     response.json(contacts);
   })
   .post((request, response) => {
+    console.log('contact', 'post');
     let maxId = 0;
 
     contacts.forEach((contact) => {
@@ -93,11 +97,13 @@ router.route('/contact/')
 
 router.route('/contact/:id')
   .get((request, response) => {
+    console.log('contact/:id', 'get');
     const contact = contacts.find((contact) => contact.id == request.params.id);
 
     response.json(contact);
   })
   .delete((request, response) => {
+    console.log('contact/:id', 'delete');
     const contactIndex = contacts.findIndex((contact) => contact.id == request.params.id);
 
     response.json(contacts[contactIndex]);
@@ -107,13 +113,15 @@ router.route('/contact/:id')
     }
   })
   .put((request, response) => {
+    console.log('contact/:id', 'put');
+
     const contactIndex = contacts.findIndex((contact) => contact.id == request.params.id);
 
-    response.json(contacts[contactIndex]);
-
     if (contactIndex !== -1) {
-      contacts[contactIndex] = Object.assign(contacts[contactIndex], request.body);
+      contacts[contactIndex] = { ...request.body, id: contacts[contactIndex].id};
     }
+    console.log(contacts[contactIndex]);
+    response.json(contacts[contactIndex]);
   });
 
 app.use('/v1', router);

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { reducer as userList } from '../ducks/userList';
+import { reducer as userList } from '../ducks/users';
 
 export default () => {
   console.log(userList);

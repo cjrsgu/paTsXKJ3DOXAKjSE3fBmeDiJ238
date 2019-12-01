@@ -21,9 +21,6 @@ const Header = () => (
       <Link to="/">Home</Link>
     </li>
     <li>
-      <Link to="/user">User</Link>
-    </li>
-    <li>
       <Link to="/add-user">Add User</Link>
     </li>
   </ul>
@@ -39,6 +36,9 @@ export default () => (
             <UserList />
           </Route>
           <Route exact path="/user/:id" children={<User />}>
+          </Route>
+          <Route exact path="/add-user/:id">
+            <AddUser />
           </Route>
           <Route exact path="/add-user">
             <AddUser />

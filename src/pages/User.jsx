@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { getUser } from '../ducks/users';
 
-const User = ({ users }) => {
+const User = ({ users, getUser }) => {
   let { id } = useParams();
+  useEffect(() => { getUser(id)}, []);
+
   const user = users && users.find(user => user && user.id === Number(id));
 
   if (!user) return <div>Пользователь не найден</div>;
@@ -22,4 +25,4 @@ const User = ({ users }) => {
 
 export default connect((state) => ({
   users: state.userList.users,
-}))(User);
+}), {getUser})(User);
